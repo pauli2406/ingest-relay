@@ -15,7 +15,9 @@
   - Result: pass; static docs build generated successfully.
 - `cd website && vercel build --yes`
   - Result before workflow fix: fails reproducibly with `Error: spawn sh ENOENT`.
-- Workflow update removes local `vercel build` usage and deploys with `vercel deploy` directly.
+- Vercel-hosted build logs then failed with:
+  - `The docs folder does not exist for version "current"... expected at ../docs`
+- Workflow update now deploys the already built static directory: `vercel deploy build ...`.
 
 ## Commands
 
