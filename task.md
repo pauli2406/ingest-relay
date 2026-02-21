@@ -7,7 +7,7 @@
 
 ## Intent
 
-Remove the standalone migration guide and all references to it, because version 1 is not published and there are no users who need migration instructions yet. Also fix docs preview/prod deployment workflow to avoid local `vercel build` failures (`spawn sh ENOENT`) in CI.
+Remove the standalone migration guide and all references to it, because version 1 is not published and there are no users who need migration instructions yet. Also fix docs preview/prod deployment workflow by deploying the local static output (`website/build`) to avoid both local `vercel build` failures (`spawn sh ENOENT`) and remote Docusaurus path issues (`../docs` missing on Vercel).
 
 ## Acceptance Criteria
 
@@ -15,16 +15,16 @@ Remove the standalone migration guide and all references to it, because version 
 2. No docs navigation or cross-links reference `/docs/how-to/migrate-custom-connectors`.
 3. Docs mapping/index files do not reference the removed page.
 4. Docs site build passes after removal.
-5. Vercel preview/production jobs avoid `vercel build` and deploy successfully via `vercel deploy`.
+5. Vercel preview/production jobs deploy `website/build` via `vercel deploy build` and avoid remote Docusaurus rebuild from `website`.
 
 ## Specialist Role Mapping
 
 1. Planner Agent
    - Scoped this as a Tier 0 docs-only removal and defined acceptance criteria around link/navigation cleanup.
 2. Implementer Agent
-   - Removed the migration page and updated docs content, sidebars, and doc maps; patched docs deploy workflow commands.
+   - Removed the migration page and updated docs content, sidebars, and doc maps; patched docs deploy workflow commands to deploy static output.
 3. Test/Eval Agent
-   - Verified no dangling references remain, docs build stays green, and the failing `vercel build` command path is no longer used.
+   - Verified no dangling references remain, docs build stays green, and the failing `vercel build`/missing `../docs` Vercel build paths are no longer required.
 4. Docs Agent
    - Updated start pages and related guides to remove migration-specific links.
 5. Security Agent

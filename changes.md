@@ -15,7 +15,7 @@
 - Updated docs deployment workflow:
   - `.github/workflows/docs-deploy-vercel.yaml`
   - removed local `vercel build` steps
-  - switched deploy commands from `--prebuilt` to direct `vercel deploy --yes`
+  - switched deploy target to prebuilt static site folder via `vercel deploy build`
 - Updated handoff artifacts:
   - `task.md`
   - `changes.md`
@@ -27,10 +27,12 @@
 
 - No runtime behavior changes.
 - Docs site no longer presents migration guidance for custom connectors.
-- Docs deploy pipeline now uses Vercel-hosted builds instead of local CLI prebuilds in CI.
+- Docs deploy pipeline now publishes the locally built static output directory (`website/build`) directly.
 
 ## Non-Functional Changes
 
 - Reduced unpublished documentation surface area.
 - Removed stale/unused doc route and related references.
-- Eliminated a reproducible CI failure path: `vercel build` -> `Error: spawn sh ENOENT`.
+- Eliminated reproducible CI failure paths:
+  - local Vercel CLI build: `vercel build` -> `Error: spawn sh ENOENT`
+  - remote Vercel build from `website`: missing `../docs` source directory

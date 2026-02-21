@@ -4,7 +4,7 @@
 - Rationale:
   - Change scope is docs plus docs-deploy workflow command adjustment.
   - No runtime code, API, deployment config, or security policy behavior changed.
-  - Validation focused on docs consistency, successful docs site build, and removal of failing local Vercel build path.
+  - Validation focused on docs consistency, successful docs site build, and removal of failing Vercel build paths by deploying static artifacts.
 
 ## Required Gates
 
